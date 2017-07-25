@@ -1,0 +1,67 @@
+doctype html
+html
+  head
+    meta(name='viewport', content='user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width')
+    meta(charset='UTF-8')
+    // bower:css 
+    // endbower 
+    link(rel='stylesheet', href='css/index.min.css')
+    // bower:js 
+    // endbower
+    script(src='js/index.js')
+    title Codepads
+  body
+    .container
+      .header-container
+        h1.default-title
+          |Koodin syöttö
+        h1.success-title(style="display: none")
+          |Koodi oikein :)
+        h1.error-title(style="display: none")
+          |Koodi väärin :(
+      .display-container
+        .display
+          |______
+      .pad
+        .row
+          .col-4.pad-cell.number-cell
+            button(data-number="1")
+              |1
+          .col-4.pad-cell.number-cell
+            button(data-number="2")
+              |2
+          .col-4.pad-cell.number-cell
+            button(data-number="3")
+              |3
+        .row
+          .col-4.pad-cell.number-cell
+            button(data-number="4")
+              |4
+          .col-4.pad-cell.number-cell
+            button(data-number="5")
+              |5
+          .col-4.pad-cell.number-cell
+            button(data-number="6")
+              |6
+        .row
+          .col-4.pad-cell.number-cell
+            button(data-number="7")
+              |7
+          .col-4.pad-cell.number-cell
+            button(data-number="8")
+              |8
+          .col-4.pad-cell.number-cell
+            button(data-number="9")
+              |9
+        .row
+          .col-4.pad-cell.backspace-cell
+            button.backspace.fa.fa-chevron-left
+          .col-4.pad-cell.number-cell
+            button(data-number="0")
+              |0
+          .col-4.pad-cell.submit-cell
+            button.enter.fa.fa-check(disabled='disabled')
+    footer
+      .metatavu-logo-container
+        a(href="https://www.metatavu.fi",target="_blank")
+          img(src="//cdn.metatavu.io/assets/metatavu/logo-horz.svg")

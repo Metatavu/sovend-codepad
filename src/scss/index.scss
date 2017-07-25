@@ -1,0 +1,153 @@
+$background-color: rgba(0, 0, 0, 0);
+$background-image: url(//cdn.metatavu.io/assets/dna-sovend-form-proto/bg-2.jpg);
+$button-size: 80px;
+$display-spacing: 45px;
+
+body {
+  background-attachment: fixed;
+  background-image: -webkit-linear-gradient($background-color, $background-color), $background-image;
+  background-image: -o-linear-gradient($background-color, $background-color), $background-image;
+  background-image: -moz-linear-gradient($background-color, $background-color), $background-image;
+  background-image: linear-gradient($background-color, $background-color), $background-image;
+  background-size: cover;
+  background-position: center -280px;
+  color: #fff;
+}
+
+button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+.header-container {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  white-space: nowrap;
+  height: 74px;
+  width: 100%;
+  position: relative;
+  
+  h1 {
+    font-size: 60px;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    
+    &.default-title {
+      color: #f1811b;
+    }
+    
+    &.success-title {
+      color: green;
+    }
+    
+    &.error-title {
+      color: red;
+    }
+  }
+}
+
+.display-container {
+  background: rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+  margin-top: 20px;
+  
+  .display {
+    width: 100%;
+    font-size: 40px;
+    border: 1px solid #000;
+    letter-spacing: $display-spacing;
+    text-align: center;
+    padding-left: $display-spacing / 2;
+  }
+  
+}
+
+.pad {
+  background: rgba(0, 0, 0, 0.5);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.pad-cell {
+  text-align: center;
+  
+  button {
+    width: $button-size;
+    height: $button-size;
+    margin: 20px;
+    background: #fff;
+    font-size: $button-size / 2;
+  }
+  
+  &.number-cell {
+    
+    button {
+      border-radius: 60px;
+      border-width: 0px;
+      transition: all 0.3s;
+      
+      &.down {
+        background-color: green;
+        color: #fff;
+      }
+    }
+    
+  }
+  
+  .fa {
+    background: transparent;
+    font-size: $button-size;
+    border: none;
+    padding: 0px;
+  }
+  
+  .backspace {
+    color: #f1811b;
+  }
+  
+  .enter {
+    color: green;
+    
+    &[disabled] {
+      color: #666;
+    }
+  }
+  
+}
+
+footer {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.5);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+
+  .metatavu-logo-container {
+    float: right;
+    
+    a {
+      text-decoration: none;
+
+      img {
+        max-width: 120px;
+      }
+    }
+
+  }
+}
