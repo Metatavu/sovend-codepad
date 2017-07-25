@@ -1,0 +1,6 @@
+/node_modules/
+/config.json
+/codes.json
+/.sass-cache/
+/nbproject/
+/www/
