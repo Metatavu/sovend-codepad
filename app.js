@@ -27,12 +27,24 @@
     const importCodes = require(options.getOption('codes'));
     const saves = [];
     
+    function createSave(importCode) {
+      return new Promise((resolve, reject) => {
+        const code = new Code();
+        code.code = importCode;
+        code.used = false;
+        
+        code.save((err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(); 
+          }
+        }); 
+      });
+    };
+    
     for (let i = 0; i < importCodes.length; i++) {
-      const importCode = importCodes[i];
-      const code = new Code();
-      code.code = importCode;
-      code.used = false;
-      saves.push(code.save());
+      saves.push(createSave(importCodes[i]));
     }
     
     Promise.each(saves)
