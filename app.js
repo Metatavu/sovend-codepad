@@ -35,7 +35,7 @@
       saves.push(code.save());
     }
     
-    Promise.all(saves)
+    Promise.each(saves)
       .then(() => {
         console.log(`${saves.length} imported`);
         process.exit(0);
