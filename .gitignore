@@ -3,4 +3,7 @@
 /codes.json
 /.sass-cache/
 /nbproject/
-/www/
+/www/bower_components
+/www/css
+/www/js
+/www/index.html
