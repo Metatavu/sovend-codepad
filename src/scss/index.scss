@@ -4,6 +4,10 @@ $background-image: url(/gfx/background.jpeg);
 $button-size: 80px;
 $display-spacing: 45px;
 
+* {
+  cursor: none !important;
+}
+
 body {
   background-attachment: fixed;
   background-image: -webkit-linear-gradient($background-color, $background-color), $background-image;
