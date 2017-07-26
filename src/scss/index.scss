@@ -1,5 +1,6 @@
 $background-color: rgba(0, 0, 0, 0);
-$background-image: url(//cdn.metatavu.io/assets/dna-sovend-form-proto/bg-2.jpg);
+$background-image: url(/gfx/background.jpeg);
+
 $button-size: 80px;
 $display-spacing: 45px;
 
@@ -10,7 +11,8 @@ body {
   background-image: -moz-linear-gradient($background-color, $background-color), $background-image;
   background-image: linear-gradient($background-color, $background-color), $background-image;
   background-size: cover;
-  background-position: center -280px;
+  background-position: center center;
+  background-repeat: no-repeat;
   color: #fff;
 }
 
