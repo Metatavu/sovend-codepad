@@ -7,9 +7,11 @@
   const http = require('http');
   const config = require('nconf');
   const Promise = require('bluebird');
-  config.file({ file: 'config.json' });
-  const app = require(__dirname + '/index');
   const options = require(__dirname + '/options');
+   
+  config.file({ file: options.getOption('conf') || 'config.json' });
+  const app = require(__dirname + '/index');
+ 
   const mongoose = require('mongoose');
   
   mongoose.Promise = Promise;

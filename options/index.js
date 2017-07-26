@@ -16,7 +16,8 @@
     constructor() {
       this.definitions = [
         { name: 'port', alias: 'p', type: Number },
-        { name: 'codes', alias: 'c', type: String },
+        { name: 'conf', alias: 'c', type: String },
+        { name: 'codes', type: String },
         { name: 'help', alias: 'h', type: Boolean }
       ];
       
