@@ -7,6 +7,7 @@
   const http = require('http');
   const config = require('nconf');
   const Promise = require('bluebird');
+  const async = require('async');
   const options = require(__dirname + '/options');
    
   config.file({ file: options.getOption('conf') || 'config.json' });
@@ -30,33 +31,27 @@
     const saves = [];
     
     function createSave(importCode) {
-      return new Promise((resolve, reject) => {
+      return (callback) => {
         const code = new Code();
         code.code = importCode;
         code.used = false;
         
-        code.save((err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(); 
-          }
-        }); 
-      });
+        code.save(callback); 
+      }
     };
     
     for (let i = 0; i < importCodes.length; i++) {
       saves.push(createSave(importCodes[i]));
     }
     
-    Promise.each(saves)
-      .then(() => {
+    async.parallelLimit(saves, 5, (err) => {
+      if (err) {
+        console.error(err);
+      } else {
         console.log(`${saves.length} imported`);
         process.exit(0);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      }
+    });
   } else {
     app.startServer(options.getOption('port'), () => {
       console.log('Express server started');
