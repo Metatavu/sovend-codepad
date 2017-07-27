@@ -34,6 +34,7 @@
     "mongoose-gridfs": "^0.1.0",
     "nconf": "0.8.4",
     "pug": "2.0.0-beta6",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "serialport": "^5.0.0-beta8"
   }
 }
