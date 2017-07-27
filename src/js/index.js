@@ -3,6 +3,22 @@
 
 (() => {
   
+  setInterval(() => {
+    try {
+      $.get('/status', (response) => {
+        switch (response) {
+          case 'PRODUCT_GIVEN':
+            $('.pad-cell button').removeAttr('disabled');
+            $('.default-title').show('slide', {direction: 'right'}, 300);
+            $('.success-title').hide('slide', {direction: 'left'}, 300);
+          break;
+        }
+      });
+    } catch (e) {
+      
+    }
+  }, 300);
+  
   $(document).on("touchstart", '.number-cell button', (event) => {
     const number = $(event.target).attr('data-number');
     const existing = $('.display').text();
@@ -53,13 +69,19 @@
     $.post('/code', {
       code: code
     }, (response) => {
-      $('.default-title').hide('slide', {direction: 'right'}, 300);
-      $('.success-title').show('slide', {direction: 'left'}, 300);
+      $('.pad-cell button').attr('disabled', 'disabled');
       
-      setTimeout(() => {
-        $('.default-title').show('slide', {direction: 'right'}, 300);
-        $('.success-title').hide('slide', {direction: 'left'}, 300);
-      }, 3000);
+      $('.default-title').hide('slide', {direction: 'right'}, 300);
+      $('.success-title').show('slide', {direction: 'left', complete: () => {
+        $('.success-title').marquee({
+          duration: 6000,
+          gap: 50,
+          delayBeforeStart: 0,
+          direction: 'left',
+          duplicated: true,
+          startVisible: true
+        });
+      }}, 300);
     })
     .fail(() => {
       $('.default-title').hide('slide', {direction: 'right'}, 300);

@@ -4,6 +4,7 @@
   'use strict';
   
   const Code = require(__dirname + '/../../models/code');
+  const status = require(__dirname + '/../../status');
 
   module.exports = (app) => {
     
@@ -11,10 +12,19 @@
       res.sendFile(__dirname + '/../../www/index.html');
     });
     
+    app.get('/status', (req, res, next) => {
+      res.status(200).send(status.getStatus());
+    });
+    
     app.post('/code', (req, res, next) => {
-      const code = req.body.code;
+      const codeParam = req.body.code;
       
-      Code.findOne({code: code, used: false})
+      if (codeParam == '000000') {
+        res.status(200).send();
+        return;
+      }
+      
+      Code.findOne({code: codeParam, used: false})
         .then((code) => {
           if (!code) {
             res.status(400).send();
