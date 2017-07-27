@@ -53,6 +53,38 @@
       }
     });
   } else {
+    const serial = require(__dirname + '/serial');
+    const status = require(__dirname + '/status');
+
+    serial.onMessage((msg) => {
+      switch (msg) {
+        case 'TUO':
+          console.log('Product chosen');
+          status.setStatus(status.WAITING_PRODUCT);
+          serial.sendData('OK');
+        break;
+        case 'VAL':
+          clearTimeout()
+          status.setStatus(status.WAITING_INPUT);
+          serial.sendData('OK');
+          const code =  status.getCode();
+          if (code) {
+            code.used = true;
+            code.save()
+              .then(() => {
+                console.log('Product given to customer');
+              })
+              .catch((err) => {
+                console.error(`Failed to save used for code ${status.getCode().code} on error ${err}`);
+              });
+          }
+        break;
+        default:
+          console.log('serial: ' + msg);
+        break;
+      }
+    });
+    
     app.startServer(options.getOption('port'), () => {
       console.log('Express server started');
     });

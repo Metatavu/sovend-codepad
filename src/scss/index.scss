@@ -61,7 +61,8 @@ button:focus {
       color: #f1811b;
     }
     
-    &.success-title {
+    &.success-title,
+    &.dispensing-title {
       color: green;
     }
     

@@ -4,6 +4,7 @@
   'use strict';
 
   const SerialPort = require('serialport');
+  const conf = require('nconf');
 
   class Serial {
 
@@ -56,6 +57,6 @@
     }    
   }
 
-  module.exports = Serial;
+  module.exports = new Serial(conf.get('serial:device'), conf.get('serial:baudRate'), conf.get('serial:startByte'), conf.get('serial:stopByte'));
   
 })();

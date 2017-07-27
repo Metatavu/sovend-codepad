@@ -3,21 +3,42 @@
 
 (() => {
   
-  setInterval(() => {
-    try {
-      $.get('/status', (response) => {
-        switch (response) {
-          case 'PRODUCT_GIVEN':
-            $('.pad-cell button').removeAttr('disabled');
-            $('.default-title').show('slide', {direction: 'right'}, 300);
-            $('.success-title').hide('slide', {direction: 'left'}, 300);
-          break;
-        }
-      });
-    } catch (e) {
-      
-    }
-  }, 300);
+  let status = 'WAITING_INPUT';
+  let margued = false;
+  let poller = null;
+  
+  
+  function startPolling() {
+    poller = setInterval(() => {
+      try {
+        $.get('/status', (response) => {
+
+          switch (response) {
+            case 'WAITING_INPUT':
+              stopPolling();
+            break;
+            case 'WAITING_PRODUCT':
+              $('.dispensing-title').show('slide', {direction: 'right'}, 300);
+              $('.success-title').hide('slide', {direction: 'left'}, 300);
+            break;
+          }
+
+          status = response;
+        });
+      } catch (e) {
+
+      }
+    }, 300);
+  }
+  
+  function stopPolling() {
+    clearInterval(poller);
+    status = 'WAITING_INPUT';
+    $('.pad-cell button').removeAttr('disabled');
+    $('.default-title').show('slide', {direction: 'right'}, 300);
+    $('.success-title').hide();
+    $('.dispensing-title').hide('slide', {direction: 'left'}, 300);
+  }
   
   $(document).on("touchstart", '.number-cell button', (event) => {
     const number = $(event.target).attr('data-number');
@@ -69,18 +90,21 @@
     $.post('/code', {
       code: code
     }, (response) => {
+      startPolling();
       $('.pad-cell button').attr('disabled', 'disabled');
-      
       $('.default-title').hide('slide', {direction: 'right'}, 300);
       $('.success-title').show('slide', {direction: 'left', complete: () => {
-        $('.success-title').marquee({
-          duration: 6000,
-          gap: 50,
-          delayBeforeStart: 0,
-          direction: 'left',
-          duplicated: true,
-          startVisible: true
-        });
+        if(!margued) {
+          margued = true;         
+          $('.success-title').marquee({
+            duration: 6000,
+            gap: 50,
+            delayBeforeStart: 0,
+            direction: 'left',
+            duplicated: true,
+            startVisible: true
+          });
+        }
       }}, 300);
     })
     .fail(() => {

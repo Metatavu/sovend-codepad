@@ -5,6 +5,7 @@
   
   const Code = require(__dirname + '/../../models/code');
   const status = require(__dirname + '/../../status');
+  const serial = require(__dirname + '/../../serial');
 
   module.exports = (app) => {
     
@@ -19,11 +20,6 @@
     app.post('/code', (req, res, next) => {
       const codeParam = req.body.code;
       
-      if (codeParam == '000000') {
-        res.status(200).send();
-        return;
-      }
-      
       Code.findOne({code: codeParam, used: false})
         .then((code) => {
           if (!code) {
@@ -31,15 +27,11 @@
             return;
           }
           
-          code.used = true;
-          code.save()
-            .then(() => {
-              res.status(200).send();
-            })
-            .catch((err) => {
-              console.error(`Failed to save used for code ${code} on error ${err}`);
-              res.status(400).send();
-            });
+          status.setCode(code);
+          status.setStatus(status.WAITING_SELECTION);
+          serial.sendData('MAK');
+          res.status(200).send();
+
         })
         .catch((err) => {
           console.error(`Failed to query for code ${code} on error ${err}`);
